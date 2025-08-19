@@ -1,0 +1,24 @@
+name: Run InstaStory Meal Alert
+
+on:
+  schedule:
+    - cron: '50 21 * * *' # Runs at 21:50 UTC (6:50 AM KST)
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11' # Assuming Python 3.11 from pycache info
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run main script
+        run: python main.py
