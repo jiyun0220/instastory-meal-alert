@@ -1,0 +1,5 @@
+requests
+Pillow
+instagrapi
+schedule
+python-dotenv
