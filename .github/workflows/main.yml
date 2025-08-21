@@ -21,4 +21,8 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run main script
+        env:
+          NEIS_API_KEY: ${{ secrets.NEIS_API_KEY }}
+          INSTAGRAM_USERNAME: ${{ secrets.INSTAGRAM_USERNAME }}
+          INSTAGRAM_PASSWORD: ${{ secrets.INSTAGRAM_PASSWORD }}
         run: python main.py
