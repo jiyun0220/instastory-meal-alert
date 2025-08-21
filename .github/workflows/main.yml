@@ -20,6 +20,10 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Create Instagram session file
+        if: secrets.IG_SESSION
+        run: echo '${{ secrets.IG_SESSION }}' > .ig_session.json
+
       - name: Run main script
         env:
           NEIS_API_KEY: ${{ secrets.NEIS_API_KEY }}
