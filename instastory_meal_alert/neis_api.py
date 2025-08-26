@@ -1,6 +1,6 @@
 import re
 import requests
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from .config import NEIS_API_KEY, OFFICE_CODE, SCHOOL_CODE
 
 
@@ -9,7 +9,8 @@ def get_meal_data(meal_type_code: str) -> str:
     if not NEIS_API_KEY:
         raise ValueError("API 키가 .env 파일에 설정되지 않았습니다.")
 
-    today = datetime.now().strftime("%Y%m%d")
+    kst = timezone(timedelta(hours=9))
+    today = datetime.now(kst).strftime("%Y%m%d")
     url = "https://open.neis.go.kr/hub/mealServiceDietInfo"
     params = {
         'KEY': NEIS_API_KEY,
