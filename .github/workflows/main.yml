@@ -21,14 +21,17 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Create Instagram session file
-        if: env.IG_SESSION != ''
         env:
-          IG_SESSION: ${{ secrets.IG_SESSION }}
-        run: echo "$IG_SESSION" > .ig_session.json
+          IG_SESSION_JSON: ${{ secrets.IG_SESSION_JSON }}
+        run: |
+          if [ -n "$IG_SESSION_JSON" ]; then
+            echo "$IG_SESSION_JSON" > .ig_session.json
+            echo "인스타그램 세션 파일을 생성했습니다."
+          else
+            echo "IG_SESSION_JSON secret을 찾을 수 없습니다. 세션 파일 생성을 건너뜁니다."
+          fi
 
       - name: Run main script
         env:
           NEIS_API_KEY: ${{ secrets.NEIS_API_KEY }}
-          INSTAGRAM_USERNAME: ${{ secrets.INSTAGRAM_USERNAME }}
-          INSTAGRAM_PASSWORD: ${{ secrets.INSTAGRAM_PASSWORD }}
         run: python main.py
